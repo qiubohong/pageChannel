@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试页面A</title>
+	<link rel="stylesheet" href="http://localhost:9000/styles.css">
+</head>
+<body>
+	<h3>测试跨域通讯机制-A页面(http://localhost:9002/)</h3>
+	<section>
+		<div class="recievew-content">
+			<div id="testArea"></div>
+		</div>
+		<div><input type="text" id="testAInput" placeholder="请输入传递B页面的内容"></div>
+		<div><button type="button" id="testButton">发送</button></div>
+	</section>
+	<script src="http://localhost:9000/pageChannel.min.js"></script>
+	<script>
+		var testAInput = document.getElementById('testAInput');
+		var testButton = document.getElementById('testButton');
+		var testArea  = document.getElementById('testArea');
+		//初始化
+		var pageChannel = new PageChannel({
+			channelUrl: 'http://localhost:9000/channel.html',
+			targetUrl: 'http://localhost:9004'
+		});
+		//接受数据
+		pageChannel.on('getMessage', function(res){
+			if(res.data){
+				result(`${res.data.value}：B端`, 'recievew');
+			}
+		});
+
+		function result(str, className){
+			className = className || '';
+			var ele = document.createElement('p')
+			ele.innerHTML = str;
+			ele.className = 'message '+ className;
+			testArea.appendChild(ele);
+			testArea.scrollTop = testArea.scrollHeight
+		}
+
+		testButton.onclick = function(){
+			if(testAInput.value == ''){
+				alert('请输入传递B页面的内容');
+				return;
+			}
+
+			pageChannel.sendMessage({
+				value : testAInput.value
+			})
+
+			result(`A端：${testAInput.value}`);
+			testAInput.value = '';
+			testAInput.focus();
+		}
+
+	</script>
+</body>
+</html>

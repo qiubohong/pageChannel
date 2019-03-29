@@ -1,0 +1,37 @@
+body{
+    background: #e8e8e8;
+}
+.recievew-content {
+    background: #e8e8e8;
+    line-height: 1.4;
+    padding:6px;
+    box-shadow: 0 0 3px 3px #999 inset;
+    margin-bottom: 10px;
+}
+#testArea{
+    height: 300px;
+    padding:12px;
+    overflow: auto;
+}
+button{
+	margin:10px 0;
+	padding:10px 0;
+	width:100%;
+}
+.message{
+	background: #fff;
+	color:#000;
+	display: block;
+	width:50%;
+    padding:8px;
+    border-radius: 1.2em;
+    box-shadow: 1px 1px 1px 1px #999;
+}
+.recievew{
+	text-align: right;
+	margin-left: auto;
+}
+input{
+	width:100%;
+	padding:10px 0;
+}
